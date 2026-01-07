@@ -1,23 +1,193 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Sentiment Analysis Roblox</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analisis Sentimen Roblox</title>
+    <style>
+        :root {
+            --primary-color: #5e35b1;
+            --secondary-color: #9c27b0;
+            --bg-color: #f8f9fa;
+            --text-color: #2d3748;
+            --border-color: #d1c4e9;
+            --success-color: #4caf50;
+            --error-color: #f44336;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        header h1 {
+            font-size: 2.4rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .form-section {
+            padding: 30px 40px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        textarea {
+            width: 100%;
+            height: 140px;
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            resize: vertical;
+            transition: var(--transition);
+            font-family: inherit;
+            background-color: #fafafa;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(94, 53, 177, 0.2);
+        }
+
+        textarea::placeholder {
+            color: #a0aec0;
+        }
+
+        .submit-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(94, 53, 177, 0.3);
+        }
+
+        .result-section {
+            padding: 30px 40px;
+            background-color: #f1f3f5;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .result-section h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .positive {
+            color: var(--success-color);
+            font-weight: 600;
+        }
+
+        .negative {
+            color: var(--error-color);
+            font-weight: 600;
+        }
+
+        .neutral {
+            color: #666;
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                margin: 10px;
+            }
+
+            .form-section,
+            .result-section {
+                padding: 20px;
+            }
+
+            textarea {
+                height: 100px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Sentiment Analysis Review Roblox</h1>
+    <div class="container">
+        <header>
+            <h1>Analisis Sentimen Review Roblox</h1>
+        </header>
 
-    <form method="post" action="/predict">
-        <textarea name="text" rows="6" cols="60" placeholder="Masukkan review di sini...">{{ text or "" }}</textarea>
-        <br><br>
-        <button type="submit">Prediksi</button>
-    </form>
+        <div class="form-section">
+            <form method="post" action="/predict">
+                <label for="text">Masukkan review di sini...</label>
+                <textarea id="text" name="text" rows="6" cols="60"
+                    placeholder="Tulis ulasan tentang Roblox di sini...">{{ text or "" }}</textarea>
+                <button type="submit" class="submit-btn">Prediksi</button>
+            </form>
+        </div>
 
-    {% if result %}
-    <h2>Hasil Sentimen: {{ result }}</h2>
-    {% endif %}
+        {% if result %}
+        <div class="result-section">
+            <h2>Hasil Sentimen:
+                <span
+                    class="{% if result == 'positif' %}positive{% elif result == 'negatif' %}negative{% else %}neutral{% endif %}">
+                    {{ result | title }}
+                </span>
+            </h2>
+        </div>
+        {% endif %}
+    </div>
 </body>
 
 </html>
