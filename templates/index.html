@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sentiment Analysis Roblox</title>
+</head>
+
+<body>
+    <h1>Sentiment Analysis Review Roblox</h1>
+
+    <form method="post" action="/predict">
+        <textarea name="text" rows="6" cols="60" placeholder="Masukkan review di sini...">{{ text or "" }}</textarea>
+        <br><br>
+        <button type="submit">Prediksi</button>
+    </form>
+
+    {% if result %}
+    <h2>Hasil Sentimen: {{ result }}</h2>
+    {% endif %}
+</body>
+
+</html>
